@@ -35,13 +35,12 @@ if($customer){
                     "nik"=>$req->nik
                 ]);
        }
-
    return Response::json("Data Has Been Added", 200);
-
 
 }
 
 public function editCustomer(Request $req){
+  return $req;
   $customer=Customer::find($req->id);
   $customerCheck=Customer::where("phone",$req->phone)->orWhere("email",$req->email)->first();
 

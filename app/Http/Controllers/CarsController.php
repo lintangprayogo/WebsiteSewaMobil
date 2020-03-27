@@ -172,8 +172,8 @@ class CarsController extends Controller
 
     }
 
-    public function showCar(){
-      return Datatables::of(Car::get())
+    public function showCar($id){
+      return Datatables::of(Car::where("brand_id",$id)->get())
         ->addColumn('action','
             <center>
             <a href="#"  data-id="{{ $id }}" data-original-title="Edit" class="edit btn btn-success edit-car"  data-toggle="modal" data-target="#formModal">
@@ -188,6 +188,6 @@ class CarsController extends Controller
         ->rawColumns(['action','role'])
         ->addIndexColumn()
         ->make(true);
-      make(true);
+      
     }
 }

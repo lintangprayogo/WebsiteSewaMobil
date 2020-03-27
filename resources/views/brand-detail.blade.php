@@ -605,6 +605,7 @@
 
         <script type="text/javascript">
 
+  
   $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
@@ -612,7 +613,7 @@
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 },
-                url: '{!! route('show.car') !!}',
+                url: "{{ URL::to('/brand/showCar/') }}/"+$("#brand-id").val(),
                 type: 'GET',
             },
         columns: [
@@ -666,7 +667,7 @@
   }
 var deleteCar = function(id) { swal({
   title: "Are You Sure?",
-  text: "Data akan dihapus dan tidak bisa dikembalikan!!",
+  text: "Data Cannot Be Restored !!",
   icon: "warning",
   buttons: true,
   dangerMode: true,
@@ -674,7 +675,7 @@ var deleteCar = function(id) { swal({
 .then((willDelete) => {
   if (willDelete) {
        $.ajax({
-            url: "{{URL::to('car/delete')}}/"+id,
+            url: "{{URL::to('/car/delete/')}}/"+id,
              type: "delete",
              dataType: 'json',
              headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}"},

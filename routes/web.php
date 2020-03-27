@@ -24,8 +24,7 @@ Route::get("/brand/profile/{id}","CarsController@profileBrand");
 Route::get("/brand/detail/{id}","CarsController@brandDetail");  
 
 Route::post("/brand/edit","CarsController@editBrand")->name("edit.brand");
-Route::get("/brand/showCar","CarsController@showCar")->name("show.car");
-
+Route::get("/brand/showCar/{id}","CarsController@showCar")->name("show.car");
 Route::get("/car/profile/{id}","CarsController@profileCar");
 Route::delete("/car/delete/{id}","CarsController@deleteCar"); 
 Route::post("/car/addCar","CarsController@addCar")->name("add.car");
@@ -37,4 +36,10 @@ Route::delete("/customer/delete/{id}","CustomerController@deleteCustomer");
 Route::post("/customer/addCustomer","CustomerController@addCustomer")->name("add.customer");
 Route::get("/customer/profile/{id}","CustomerController@profileCustomer");
 Route::post("/customer/editCustomer","CustomerController@editCustomer")->name("edit.customer");
+Route::get("/Booking","BookingController@index")->name("booking");
+Route::post("/Booking/addBook","BookingController@addTrans")->name("add.book");
+Route::get("/Booking/show","BookingController@showTrans")->name("show.trans");
+Route::get("/Booking/profile/{id}","BookingController@transProfile");
+Route::delete("/Booking/Delete/{id}","BookingController@deleteBook");
+
 });

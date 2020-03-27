@@ -18,9 +18,10 @@ class CreateTableCar extends Migration
             $table->String("color");
             $table->String("police_number")->unique();
             $table->String("year");
-            $table->boolean('available')->default(0);
-            $table->unsignedBigInteger('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->boolean('available')->default(1);
+            $table->unsignedBigInteger('brand_id')->nullable();
+          
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->timestamps();
         });
     }

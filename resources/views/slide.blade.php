@@ -14,6 +14,10 @@
                              <a class="nav-link" href="{{ route('customer') }}"
                                 ><div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Customer</a>
+
+                        <a class="nav-link" href="{{ route('booking') }}"
+                                ><div class="sb-nav-link-icon"><i class="fa fa-book"></i></div>
+                                Booking</a>
                            
                          
                         </div>
