@@ -18,9 +18,10 @@ class CreateBookingTable extends Migration
             $table->unsignedBigInteger("customer_id")->nullable();;
             $table->unsignedBigInteger("car_id")->nullable();;
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('set null');
-              $table->date("rent_start_date")->nullable();
+            $table->date("rent_start_date")->nullable();
             $table->date("rent_end_date")->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
+            $table->boolean('ongoing')->default(1);
             $table->INTEGER("total");
             $table->timestamps();
             

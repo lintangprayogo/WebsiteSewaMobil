@@ -197,10 +197,12 @@ minDate();
            { data: 'police_number', name: 'police_number' },
            { data: 'start', name: 'start' },
            { data: 'end', name: 'end' },
-           { data: 'total', name: 'toal' },
-           {data: 'action', name: 'action', orderable: false}
+           { data: 'total', name: 'total' },
+           {data: 'action', name: 'action', orderable: false},
 
-        ]}
+        ]
+        
+        }
 
         );
 
@@ -322,7 +324,7 @@ function changeDate(){
          })
     });
 
-    var deleteBook = function(id) { swal({
+var deleteBook = function(id) { swal({
   title: "Are You Sure?",
   text: "Data Cannot Be Restored!!",
   icon: "warning",
@@ -334,6 +336,37 @@ function changeDate(){
        $.ajax({
             url: "{{URL::to('/Booking/Delete/')}}/"+id,
              type: "delete",
+             dataType: 'json',
+             headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}"},
+          success: function (data) {
+              $('#btn-save').html('Add');
+              var oTable = $('#dataTable').dataTable();
+              oTable.fnDraw(false);
+              swal("Finish!",data, "success");
+              $('#formModal').trigger('click');
+          },
+          error: function (data) {
+
+              swal("Failed!",data.responseText, "error");
+              $('#btn-save').html(action);
+            }
+        });
+  } 
+});
+};
+
+var markDone = function(id) { swal({
+  title: "Are You Sure To Finish This Booking?",
+  text: "Data Cannot Be Changed Anymore!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDone) => {
+  if (willDone) {
+       $.ajax({
+            url: "{{URL::to('/Booking/MarkDone/')}}/"+id,
+             type: "post",
              dataType: 'json',
              headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}"},
           success: function (data) {

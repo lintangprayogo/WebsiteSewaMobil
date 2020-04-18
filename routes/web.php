@@ -41,5 +41,5 @@ Route::post("/Booking/addBook","BookingController@addTrans")->name("add.book");
 Route::get("/Booking/show","BookingController@showTrans")->name("show.trans");
 Route::get("/Booking/profile/{id}","BookingController@transProfile");
 Route::delete("/Booking/Delete/{id}","BookingController@deleteBook");
-
+Route::post("/Booking/MarkDone/{id}","BookingController@markDone");
 });

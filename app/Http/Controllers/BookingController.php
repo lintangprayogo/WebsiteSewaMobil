@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DateTime;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Car;
@@ -49,14 +49,34 @@ class BookingController extends Controller
 
     public function showTrans(){
     return Datatables::of(Booking::select(
-          "Bookings.id","brand_name","police_number","rent_start_date as start","rent_end_date as end","total","email","brand_id","customers.name as customer")
+          "Bookings.id","brand_name","police_number","rent_start_date as start","rent_end_date as end","total","email","brand_id","customers.name as customer","ongoing")
             ->join("cars",'cars.id',"=","Bookings.car_id")->join("customers","customers.id","=","Bookings.customer_id")
             ->join("brands","brands.id","=","cars.brand_id")
             ->get())
-            ->addColumn('action','
-            <center>
-           <a href="#" class="btn btn-danger" onclick="deleteBook({{$id}})"><i class="fa fa-trash"></i></a>
-              </center>')
+            ->addColumn('action',function($booking) {
+              if($booking->ongoing==1){
+                $id=$booking->id;
+                return '
+                <center>
+               <a href="#" class="btn btn-danger" onclick="deleteBook('.$id.')"><i class="fa fa-trash"></i></a>
+               <a href="#" class="btn btn-primary" onclick="markDone('.$id.')"><i class="fa fa-check"></i></a>
+
+               </center>';
+              }
+          })
+         ->setRowClass(function ($booking) {
+              $today =  date("Y-m-d"); 
+              $end = $booking->end; 
+                 if($booking->ongoing==1){
+                  return 'table-Success';
+                 }
+                 else if($today>$end){
+                  return 'table-danger';
+                 }else {
+                  return 'table-info';
+                 }
+                
+          })   
         ->rawColumns(['action','role'])
         ->addIndexColumn()
         ->make(true);
@@ -73,11 +93,26 @@ class BookingController extends Controller
     public function deleteBook($id){
       $booking=Booking::find($id);
       $car=Car::find($booking->car_id);
-      $car->rent_start_date=null;
-      $car->rent_end_date=null;
-      $car->available=1;
+      if($car){
+        $car->available=1;
+        $car->save();
+      }
       $booking->delete();
     return Response::json("Data Has Been Remove", 200);
+
+    }
+
+    public function markDone($id){
+       $booking=Booking::find($id);
+       $booking->ongoing=0;
+       $booking->save();
+       $car=Car::find($booking->car_id);
+       if($car){
+        $car->available=1;
+        $car->save();
+       }
+
+      return Response::json("Booking  Already Set As Done", 200);
 
     }
 }
