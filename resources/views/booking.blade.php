@@ -34,7 +34,7 @@
                             <li class="breadcrumb-item active">Bookings</li>
                         </ol>
                       
-                        <button class="btn btn-primary" style="margin-bottom: 10px" data-toggle="modal" data-target="#formModal" id="add-Booking">Add</button>
+                        <button class="btn btn-primary" style="margin-bottom: 10px" data-toggle="modal" data-target="#formModal" id="add-booking">Add</button>
                         
                     <div class="card mb-4">
                             <div class="card-header"><i class="fas fa-table mr-1"></i>Booking Data</div>
@@ -231,7 +231,7 @@ function changeDate(){
     var dd = start_date.getDate();
     var mm = start_date.getMonth()+1; //January is 0!
     var yyyy = start_date.getFullYear();
-    if(diffDays==0){
+    if(diffDays<=0){
       nextDay = yyyy+'-'+mm+'-'+(dd+1);
       $("#end_date").val(nextDay);
       document.getElementById("end_date").setAttribute("min", nextDay);
@@ -293,6 +293,7 @@ function changeDate(){
               var oTable = $('#dataTable').dataTable();
               oTable.fnDraw(false);
               swal("Finish!",data, "success");
+              
               $('#formModal').trigger('click');
           },
           error: function (data) {
@@ -323,6 +324,8 @@ function changeDate(){
           $("#end_date").setAttribute("min",data.end);
          })
     });
+
+ 
 
 var deleteBook = function(id) { swal({
   title: "Are You Sure?",
@@ -385,6 +388,8 @@ var markDone = function(id) { swal({
   } 
 });
 };
+
+
 </script>
  
  

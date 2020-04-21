@@ -15,7 +15,7 @@ Route::get('/',"HomeController@index")->name("front");
 
 Auth::Routes();
 Route::group(['middleware' => ['auth']], function () {
-Route::get("/dashboard","HomeController@dashboard")->name("dashboard");
+Route::get("/dashboard","DashboardController@index")->name("dashboard");
 Route::get("/brand","CarsController@index")->name("brand");
 Route::post("/brand/addBrand","CarsController@addBrand")->name("add.brand");
 Route::get("/brand/showBrand","CarsController@showBrand")->name("show.brand");

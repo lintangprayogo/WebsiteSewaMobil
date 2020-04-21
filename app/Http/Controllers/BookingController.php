@@ -23,7 +23,7 @@ class BookingController extends Controller
     public function addTrans(Request $req){
            $customer =Customer::where("email",$req->email)->first();
            if($customer){
-               $car=Car::where("brand_id",1)->where("available",1)->inRandomOrder()->first();
+               $car=Car::where("brand_id",$req->brand_id)->where("available",1)->inRandomOrder()->first();
            	   if($car){
                   try{
                     Booking::create([
@@ -62,13 +62,15 @@ class BookingController extends Controller
                <a href="#" class="btn btn-primary" onclick="markDone('.$id.')"><i class="fa fa-check"></i></a>
 
                </center>';
+              }else {
+                return "Booking Is Finish";
               }
           })
          ->setRowClass(function ($booking) {
               $today =  date("Y-m-d"); 
               $end = $booking->end; 
-                 if($booking->ongoing==1){
-                  return 'table-Success';
+                 if($booking->ongoing==0){
+                  return 'table-success';
                  }
                  else if($today>$end){
                   return 'table-danger';
