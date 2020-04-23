@@ -9,6 +9,8 @@ use App\Models\Booking;
 use App\Models\Brand;
 use Yajra\Datatables\Datatables;
 use Response;
+use Excel;
+use App\Exports\IncomeExport;
 class BookingController extends Controller
 {
     
@@ -116,5 +118,9 @@ class BookingController extends Controller
 
       return Response::json("Booking  Already Set As Done", 200);
 
+    }
+
+    public function exportIncome(Request $req){
+           return  Excel::download(new IncomeExport($req->start_date,$req->end_date), 'income_record.xlsx');
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use Yajra\Datatables\Datatables;
 use Response;
+use Excel;
+use App\Exports\CustomerExport;
 
 
 class CustomerController extends Controller
@@ -81,6 +83,10 @@ public function showCustomer(){
         ->addIndexColumn()
         ->make(true);
       make(true);
+    }
+
+    public function customerToExcel(){
+     return Excel::download(new CustomerExport, 'customer_record.xlsx');
     }
 
 }

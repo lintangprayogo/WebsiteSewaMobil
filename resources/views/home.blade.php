@@ -53,7 +53,7 @@
                                    </div>
                                   
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="{{ route('customerexport') }}">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                    </div>
                                   
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="{{route('exportcaravailable')}}">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                    </div>
                                   
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="{{route('exportcarunavailable')}}">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -139,14 +139,53 @@
                                    </div>
                                   
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="#" data-toggle="modal" data-target="#formModal" id="Export-Income">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
                       
                     </div>
+                        <!-- Modal -->
+              <div class="modal fade" id="formModal" role="dialog">
+                <div class="modal-dialog">
+                <form method="GET" enctype="multipart/form-data" id="incomeForm" action="{{route('export.income')}}">
+                       <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="form-title">Income Report</h4>
+                    </div>
+                    <div class="modal-body">
+                      <input type="hidden" name="id"  id="Income-id">     
+
+                       
+                
+             
+                      <div class="form-group">
+                        <label for="Income">Start:</label>
+                        <input type="date" class="form-control" id="start_date" required="required" name="start_date" >
+                      </div>
+
+                      <div class="form-group">
+                        <label for="Income">End:</label>
+                        <input type="date" class="form-control" id="end_date" required="required" name="end_date" >
+                      </div>
+                     
+                     
+                  
+                
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"  value="add-Income" id="btn-save" >Export</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+                    </div>
+                  </div>
+                  
+                </form>
+               
+                </div>
+              </div>
                 </main>
+                
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -161,14 +200,28 @@
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        
+          <!-- Bootstrap core JavaScript-->
+
+
+
+        <!-- Core plugin JavaScript-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Custom scripts for all pages-->
+
+        <script src="//code.jquery.com/jquery.js"></script>
+         <!-- DataTables -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+        <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
         <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/datatables-demo.js"></script>
+
     </body>
 </html>

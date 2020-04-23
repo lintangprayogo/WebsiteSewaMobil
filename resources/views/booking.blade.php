@@ -141,7 +141,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
+                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
@@ -337,7 +337,7 @@ var deleteBook = function(id) { swal({
 .then((willDelete) => {
   if (willDelete) {
        $.ajax({
-            url: "{{URL::to('/Booking/Delete/')}}/"+id,
+            url: "{{URL::to('/booking/Delete/')}}/"+id,
              type: "delete",
              dataType: 'json',
              headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}"},
@@ -368,7 +368,7 @@ var markDone = function(id) { swal({
 .then((willDone) => {
   if (willDone) {
        $.ajax({
-            url: "{{URL::to('/Booking/MarkDone/')}}/"+id,
+            url: "{{URL::to('/booking/MarkDone/')}}/"+id,
              type: "post",
              dataType: 'json',
              headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}"},

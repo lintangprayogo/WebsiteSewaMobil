@@ -8,6 +8,9 @@ use App\Models\Car;
 use Response;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
+use Excel;
+use App\Exports\CarAvailableExport;
+use App\Exports\CarUnavailableExport;
 
 class CarsController extends Controller
 {
@@ -126,7 +129,11 @@ class CarsController extends Controller
     }
 
     public function brandDetail($id){
+
       $brand = Brand::find($id);
+      if(!$brand){
+        abort(404);
+      }
       return view("brand-detail",["brand"=>$brand]);
     }
 
@@ -189,5 +196,13 @@ class CarsController extends Controller
         ->addIndexColumn()
         ->make(true);
       
+    }
+
+    public function exportCarAvailable(){
+      return  Excel::download(new CarAvailableExport, 'car_available_record.xlsx');
+    }
+
+    public function exportCarUnavailable(){
+      return  Excel::download(new CarUnavailableExport, 'car_unavailable_record.xlsx');
     }
 }

@@ -11,10 +11,17 @@
 |
 */
 
+
+
+Route::group(['middleware' => 'revalidate'], function()
+{
+  
 Route::get('/',"HomeController@index")->name("front");
 
 Auth::Routes();
 Route::group(['middleware' => ['auth']], function () {
+Route::get("/changePassword","ResetController@resetPage")->name("reset");
+Route::post("/changePasswordSubmit","ResetController@changePasswordSubmit")->name("change.password");		
 Route::get("/dashboard","DashboardController@index")->name("dashboard");
 Route::get("/brand","CarsController@index")->name("brand");
 Route::post("/brand/addBrand","CarsController@addBrand")->name("add.brand");
@@ -36,10 +43,23 @@ Route::delete("/customer/delete/{id}","CustomerController@deleteCustomer");
 Route::post("/customer/addCustomer","CustomerController@addCustomer")->name("add.customer");
 Route::get("/customer/profile/{id}","CustomerController@profileCustomer");
 Route::post("/customer/editCustomer","CustomerController@editCustomer")->name("edit.customer");
-Route::get("/Booking","BookingController@index")->name("booking");
-Route::post("/Booking/addBook","BookingController@addTrans")->name("add.book");
-Route::get("/Booking/show","BookingController@showTrans")->name("show.trans");
-Route::get("/Booking/profile/{id}","BookingController@transProfile");
-Route::delete("/Booking/Delete/{id}","BookingController@deleteBook");
-Route::post("/Booking/MarkDone/{id}","BookingController@markDone");
+
+Route::get("/booking","BookingController@index")->name("booking");
+Route::post("/booking/addBook","BookingController@addTrans")->name("add.book");
+Route::get("/booking/show","BookingController@showTrans")->name("show.trans");
+Route::get("/booking/profile/{id}","BookingController@transProfile");
+Route::delete("/booking/Delete/{id}","BookingController@deleteBook");
+Route::post("/booking/MarkDone/{id}","BookingController@markDone");
+
+
+});
+
+});
+
+Route::group(['middleware' => ['auth']], function () {
+	Route::get("/booking/exportIncome","BookingController@exportIncome")->name("export.income");
+	Route::get("/car/exportCarAvailable","CarsController@exportCarAvailable")->name("exportcaravailable");
+Route::get("/car/exportCarUnavailable","CarsController@exportCarUnavailable")->name("exportcarunavailable");
+Route::get("/customer/exportCustomer","CustomerController@customerToExcel")->name("customerexport");
+
 });
